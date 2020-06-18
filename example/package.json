@@ -5,10 +5,11 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@loriick/use-http-client": "link:..",
+    "json-server": "^0.16.1",
     "react": "link:../node_modules/react",
     "react-dom": "^16.9.0",
-    "react-scripts": "^3.0.1",
-    "@loriick/use-http-client": "link:.."
+    "react-scripts": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
