@@ -111,14 +111,14 @@ describe("useHttpClient - PUT", () => {
       })
     );
     expect(result.current.loading).toBeTruthy();
-    expect(result.current.data).toBeDefined();
+    expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
     await waitForNextUpdate();
 
     expect(result.current.loading).toBeFalsy();
-    expect(result.current.data).toBeNull();
-    expect(result.current.error).toBeDefined();
+    expect(result.current.data).toBeDefined();
+    expect(result.current.error).toBeNull();
   });
 
   it("should return an error", async () => {
@@ -165,8 +165,8 @@ describe("useHttpClient - DELETE", () => {
     await waitForNextUpdate();
 
     expect(result.current.loading).toBeFalsy();
-    expect(result.current.data).toBeNull();
-    expect(result.current.error).toBeDefined();
+    expect(result.current.data).toBeDefined();
+    expect(result.current.error).toBeNull();
   });
 
   it("should return an error after loading", async () => {
