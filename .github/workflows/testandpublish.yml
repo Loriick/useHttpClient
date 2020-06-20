@@ -4,17 +4,14 @@ on:
       - master
 
 jobs:
-  runs-on: ubuntu-latest
-  test:
+  test-publish:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout
       - name: install dependencies
         run: npm install
       - name: test
         run: npm run test
-
-  publish:
-    steps:
       - name: build
         run: npm run build
       - name: log to npmjs
