@@ -1,6 +1,6 @@
 {
   "name": "@loriick/use-http-client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "author": "Loriick",
   "license": "MIT",
@@ -28,11 +28,13 @@
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/runtime": "^7.3.1",
+    "@testing-library/react": "^10.3.0",
     "@testing-library/react-hooks": "^3.2.1",
     "@types/jest": "^23.3.13",
     "@types/react": "^16.7.22",
     "cross-env": "^5.2.0",
     "gh-pages": "^2.0.1",
+    "msw": "^0.19.4",
     "react": "^16.9.0",
     "react-scripts": "^3.4.0",
     "react-test-renderer": "^16.9.0",
@@ -44,7 +46,6 @@
     "rollup-plugin-typescript2": "^0.19.2",
     "rollup-plugin-url": "^2.1.0",
     "typescript": "^3.2.4",
-    "msw": "^0.19.4",
     "whatwg-fetch": "^3.0.0"
   }
 }
