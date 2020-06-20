@@ -7,7 +7,7 @@ jobs:
   test-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout
+      - uses: actions/checkout@v2
       - name: install dependencies
         run: npm install
       - name: test
@@ -15,6 +15,6 @@ jobs:
       - name: build
         run: npm run build
       - name: log to npmjs
-        run: npx npm-cli-login -u loriick -p ${{secrets.NPMJS_PASSWORD}}
+        run: npx npm-cli-login -u loriick -p ${{secrets.NPMJS_PASSWORD}} -e loricktravailleur@gmail.com
       - name: publish to npm
         run: npm publish
