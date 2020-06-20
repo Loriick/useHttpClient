@@ -4,7 +4,7 @@
 
 [![NPM](https://img.shields.io/npm/v/@loriick/use-http-client.svg)](https://www.npmjs.com/package/@loriick/use-http-client)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![Status](https://github.com/Loriick/useHttpClient/workflows/testandpublish/badge.svg)](https://github.com/Loriick/useHttpClient/actions)
+![.github/workflows/testandpublish.yml](https://github.com/Loriick/useHttpClient/workflows/.github/workflows/testandpublish.yml/badge.svg)
 
 ## Install
 
