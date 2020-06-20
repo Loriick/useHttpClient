@@ -43,6 +43,52 @@ const GetExample = () => {
 };
 ```
 
+### POST - method
+
+```tsx
+import React, { useState } from "react";
+
+import useHttpClient from "@loriick/use-http-client";
+
+const PostExample = () => {
+  const [title, setTitle] = useState("");
+
+  const { data, status, error, executeRequest } = useHttpClient(
+    "http://myapi.fr/posts/",
+    {
+      method: "POST",
+      onRender: false,
+      body: { title },
+      options: {
+        headers: {
+          "Content-type": "application/json;",
+        },
+      },
+    }
+  );
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    await executeRequest();
+  };
+
+  return (
+    <form onSubmit={()=> handleSumit()}>
+      <input
+        name="title"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setvalue(e.target.value)
+        }
+        value={title}
+        placeholder={Enter your title here}
+      />
+
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+```
+
 ## License
 
 MIT © [Loriick](https://github.com/Loriick)

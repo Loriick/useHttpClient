@@ -3,4 +3,5 @@ export interface Arguments {
   method?: Method;
   body?: object;
   options?: object;
+  onRender?: boolean;
 }

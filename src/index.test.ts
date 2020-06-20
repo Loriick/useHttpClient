@@ -1,4 +1,4 @@
-import { renderHook, cleanup } from "@testing-library/react-hooks";
+import { renderHook, cleanup, act } from "@testing-library/react-hooks";
 
 import useHttpClient from "./index";
 
@@ -38,7 +38,7 @@ describe("useHttpClient - GET", () => {
 
 describe("useHttpClient - POST", () => {
   it("should loading and return data object", async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
+    const { result } = renderHook(() =>
       useHttpClient("https://jsonplaceholder.typicode.com/posts/", {
         method: "POST",
         body: {
@@ -53,11 +53,12 @@ describe("useHttpClient - POST", () => {
         },
       })
     );
+
     expect(result.current.status).toBe("pending");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
-    await waitForNextUpdate();
+    await act(() => result.current.executeRequest());
 
     expect(result.current.status).toBe("resolved");
     expect(result.current.data).toBeDefined();
@@ -65,7 +66,7 @@ describe("useHttpClient - POST", () => {
   });
 
   it("should return an error", async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
+    const { result } = renderHook(() =>
       useHttpClient("https://jsonplaceholder.typicode.com/po/", {
         method: "POST",
         body: {
@@ -84,7 +85,7 @@ describe("useHttpClient - POST", () => {
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
-    await waitForNextUpdate();
+    await act(() => result.current.executeRequest());
 
     expect(result.current.status).toBe("rejected");
     expect(result.current.data).toBeNull();
@@ -94,7 +95,7 @@ describe("useHttpClient - POST", () => {
 
 describe("useHttpClient - PUT", () => {
   it("should loading and return data object after update", async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
+    const { result } = renderHook(() =>
       useHttpClient("https://jsonplaceholder.typicode.com/posts/1", {
         method: "PUT",
         body: {
@@ -114,7 +115,7 @@ describe("useHttpClient - PUT", () => {
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
-    await waitForNextUpdate();
+    await act(() => result.current.executeRequest());
 
     expect(result.current.status).toBe("resolved");
     expect(result.current.data).toBeDefined();
@@ -122,7 +123,7 @@ describe("useHttpClient - PUT", () => {
   });
 
   it("should return an error", async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
+    const { result } = renderHook(() =>
       useHttpClient("https://jsonplaceholder.typicode.com/po/1", {
         method: "PUT",
         body: {
@@ -142,7 +143,7 @@ describe("useHttpClient - PUT", () => {
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
-    await waitForNextUpdate();
+    await act(() => result.current.executeRequest());
 
     expect(result.current.status).toBe("rejected");
     expect(result.current.data).toBeNull();
@@ -152,7 +153,7 @@ describe("useHttpClient - PUT", () => {
 
 describe("useHttpClient - DELETE", () => {
   it("should loading and return data after delete", async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
+    const { result } = renderHook(() =>
       useHttpClient("https://jsonplaceholder.typicode.com/posts/1", {
         method: "DELETE",
       })
@@ -162,7 +163,7 @@ describe("useHttpClient - DELETE", () => {
     expect(result.current.data).toBeDefined();
     expect(result.current.error).toBeNull();
 
-    await waitForNextUpdate();
+    await act(() => result.current.executeRequest());
 
     expect(result.current.status).toBe("resolved");
     expect(result.current.data).toBeDefined();
@@ -170,7 +171,7 @@ describe("useHttpClient - DELETE", () => {
   });
 
   it("should return an error after loading", async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
+    const { result } = renderHook(() =>
       useHttpClient("https://jsonplaceholder.typicode.com/pe/", {
         method: "DELETE",
       })
@@ -179,7 +180,7 @@ describe("useHttpClient - DELETE", () => {
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
-    await waitForNextUpdate();
+    await act(() => result.current.executeRequest());
 
     expect(result.current.status).toBe("rejected");
     expect(result.current.data).toBeNull();
