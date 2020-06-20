@@ -1,47 +1,39 @@
-import * as React from 'react';
+import * as React from "react";
+import { Arguments } from "./utils/interface";
+import goFetch from "./goFetch";
 
-type Method = "GET" | "POST" | "PUT" | "DELETE";
-interface Arguments {
-  method?: Method;
-  body?: object;
-  options?: object;
-}
+type Status = "pending" | "resolved" | "rejected"
 
-function useHttpClient(url: string, { method, body, options }: Arguments = {method: "GET"}) {
-  const [loading, setLoading] = React.useState<boolean>(true);
+function useHttpClient(
+  url: string,
+  { method, body, options }: Arguments = { method: "GET" }
+) {
+  const [status, setStatus] = React.useState<Status>("pending");
   const [error, setError] = React.useState<null | object>(null);
   const [data, setData] = React.useState<null | object>(null);
-  
-  const gofetch = async (url: string, args: Arguments): Promise<any> => {
-    const httpVerb: string = args.method.toLowerCase()
-    const needBody: boolean = ['put', 'post'].includes(httpVerb as any);
-    if (args.body === null && needBody) return undefined;
-    const parameters = needBody ? { ...args, body: JSON.stringify(args.body) } : { method: args.method }
-    return await fetch(url, { ...parameters })
-  }
 
   React.useEffect(() => {
     const callFunc = async () => {
       try {
-        const res = await gofetch(url, { method, body, options });
-        const json = await res.json()
-        setData(json)
-        setLoading(false)
+        const res = await goFetch(url, { method, body, options });
+        if (!res.ok)
+          throw new Error(`Request failed with ${res.status} status`);
+        const json = await res.json();
+        setData(json);
+        setStatus("resolved");
       } catch (error) {
         setError(error);
-        setLoading(false)
+        setStatus("rejected");
       }
-    }
-    callFunc()
-  }, [url])
+    };
+    callFunc();
+  }, [url]);
 
   return {
-    loading, error, data
-  }
+    status,
+    error,
+    data,
+  };
+}
 
-};
-
-
-
-
-export default useHttpClient
+export default useHttpClient;
