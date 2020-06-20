@@ -9,13 +9,13 @@ describe("useHttpClient - GET", () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useHttpClient("https://jsonplaceholder.typicode.com/posts/")
     );
-    expect(result.current.loading).toBeTruthy();
+    expect(result.current.status).toBe("pending");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
     await waitForNextUpdate();
 
-    expect(result.current.loading).toBe(false);
+    expect(result.current.status).toBe("resolved");
     expect(result.current.data).toBeDefined();
     expect(result.current.error).toBeNull();
   });
@@ -24,13 +24,13 @@ describe("useHttpClient - GET", () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useHttpClient("https://jsonplaceholder.typicode.com/post/")
     );
-    expect(result.current.loading).toBeTruthy();
+    expect(result.current.status).toBe("pending");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
     await waitForNextUpdate();
 
-    expect(result.current.loading).toBe(false);
+    expect(result.current.status).toBe("rejected");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeDefined();
   });
@@ -53,13 +53,13 @@ describe("useHttpClient - POST", () => {
         },
       })
     );
-    expect(result.current.loading).toBeTruthy();
+    expect(result.current.status).toBe("pending");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
     await waitForNextUpdate();
 
-    expect(result.current.loading).toBe(false);
+    expect(result.current.status).toBe("resolved");
     expect(result.current.data).toBeDefined();
     expect(result.current.error).toBeNull();
   });
@@ -80,13 +80,13 @@ describe("useHttpClient - POST", () => {
         },
       })
     );
-    expect(result.current.loading).toBeTruthy();
+    expect(result.current.status).toBe("pending");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
     await waitForNextUpdate();
 
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.status).toBe("rejected");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeDefined();
   });
@@ -110,13 +110,13 @@ describe("useHttpClient - PUT", () => {
         },
       })
     );
-    expect(result.current.loading).toBeTruthy();
+    expect(result.current.status).toBe("pending");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
     await waitForNextUpdate();
 
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.status).toBe("resolved");
     expect(result.current.data).toBeDefined();
     expect(result.current.error).toBeNull();
   });
@@ -138,13 +138,13 @@ describe("useHttpClient - PUT", () => {
         },
       })
     );
-    expect(result.current.loading).toBeTruthy();
+    expect(result.current.status).toBe("pending");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
     await waitForNextUpdate();
 
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.status).toBe("rejected");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeDefined();
   });
@@ -158,13 +158,13 @@ describe("useHttpClient - DELETE", () => {
       })
     );
 
-    expect(result.current.loading).toBeTruthy();
+    expect(result.current.status).toBe("pending");
     expect(result.current.data).toBeDefined();
     expect(result.current.error).toBeNull();
 
     await waitForNextUpdate();
 
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.status).toBe("resolved");
     expect(result.current.data).toBeDefined();
     expect(result.current.error).toBeNull();
   });
@@ -175,13 +175,13 @@ describe("useHttpClient - DELETE", () => {
         method: "DELETE",
       })
     );
-    expect(result.current.loading).toBeTruthy();
+    expect(result.current.status).toBe("pending");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeNull();
 
     await waitForNextUpdate();
 
-    expect(result.current.loading).toBeFalsy();
+    expect(result.current.status).toBe("rejected");
     expect(result.current.data).toBeNull();
     expect(result.current.error).toBeDefined();
   });
