@@ -17,4 +17,4 @@ jobs:
       - name: log to npmjs
         run: npx npm-cli-login -u loriick -p "${{secrets.NPMJS_PASSWORD}}" -e loricktravailleur@gmail.com
       - name: publish to npm
-        run: npm publish
+        run: npm publish --access public
