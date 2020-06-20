@@ -3,10 +3,17 @@ import React from "react";
 import useHttpClient from "@loriick/use-http-client";
 
 const App = () => {
-  const { data, loading, error } = useHttpClient(
+  const { data, status, error } = useHttpClient(
     "https://jsonplaceholder.typicode.com/posts/"
   );
-  console.log({ data, loading, error });
-  return <div>{"example"}</div>;
+
+  if (status === "pending") {
+    return <p>Loading</p>;
+  }
+
+  if (status === "rejected") {
+    return <p>{error.message}</p>;
+  }
+  return data.map((d) => <p key={d.id}>{d.title}</p>);
 };
 export default App;

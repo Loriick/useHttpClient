@@ -1,10 +1,11 @@
 {
   "name": "@loriick/use-http-client",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "author": "Loriick",
   "license": "MIT",
-  "repository": "Loriick/useHttpClient",
+  "repository": "https://github.com/Loriick/useHttpClient",
+  "homepage": "https://github.com/Loriick/useHttpClient#readme",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",

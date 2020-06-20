@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  runs-on: ubuntu-latest
+  test:
+    steps:
+      - uses: actions/checkout
+      - name: install dependencies
+        run: npm install
+      - name: test
+        run: npm run test
+
+  publish:
+    steps:
+      - name: build
+        run: npm run build
+      - name: log to npmjs
+        run: npx npm-cli-login -u loriick -p ${{secrets.NPMJS_PASSWORD}}
+      - name: publish to npm
+        run: npm publish
