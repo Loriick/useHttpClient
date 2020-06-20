@@ -1,1 +1,5 @@
 example
+coverage
+.github
+node_modules
+.editorconfig
