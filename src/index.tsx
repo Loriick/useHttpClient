@@ -18,6 +18,8 @@ function useHttpClient(
     try {
       setStatus("pending")
       const res = await goFetch(url, { method, body, options });
+      if (!res.ok)
+        throw error;
       const json = await res.json();
       setHasTorender(false)
       setData(json);
