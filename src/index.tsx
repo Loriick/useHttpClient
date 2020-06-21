@@ -16,17 +16,20 @@ function useHttpClient(
   const executeRequest = async () => {
     setHasTorender(true)
     try {
-      setStatus("pending")
+      setStatus("pending");
+
       const res = await goFetch(url, { method, body, options });
-      if (!res.ok) {
-        setStatus("rejected");
-        setError(res);
-        throw new Error();
-      }
       const json = await res.json();
-      setHasTorender(false)
+
+      if (!res.ok) {
+        setError(json);
+        throw error;
+      }
+
+      setHasTorender(false);
       setData(json);
       setStatus("resolved");
+
     } catch (error) {
       setError(error);
       setStatus("rejected");
@@ -38,7 +41,6 @@ function useHttpClient(
     if (hasToRender) {
       executeRequest();
       setHasTorender(false)
-
     }
   }, [url, hasToRender, status]);
 

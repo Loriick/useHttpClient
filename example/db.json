@@ -3,16 +3,19 @@
         {
             "id": 1,
             "title": "post 1",
+            "content": "content 1",
             "author": "Loriick"
         },
         {
             "id": 2,
             "title": "post 2",
+            "content": "content 2",
             "author": "Loriick"
         },
         {
             "id": 3,
             "title": "post 3",
+            "content": "content 3",
             "author": "Loriick"
         }
     ],

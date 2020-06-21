@@ -1,26 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import useHttpClient from "@loriick/use-http-client";
 
 const App = () => {
-  const { data, status, error } = useHttpClient(
-    "https://jsonplaceholder.typicode.com/posts?userId=1"
-  );
+  const [values, setValues] = useState({ title: "", content: "" });
+  const { data, status, error } = useHttpClient("http://localhost:7777/posts");
 
-  const { data: postData, status: postStatus, executeRequest } = useHttpClient(
-    "https://jsonplaceholder.typicode.com/posts",
-    {
-      method: "POST",
-      onRender: false,
-      body: { title: "title 1", content: "1" },
-      options: {
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-        mode: "cors",
+  const {
+    data: postData,
+    status: postStatus,
+    executeRequest,
+    error: postError,
+  } = useHttpClient("http://localhost:7777/post", {
+    method: "POST",
+    onRender: false,
+    body: { title: values.title, content: values.content },
+    options: {
+      headers: {
+        "Content-type": "application/json",
       },
-    }
-  );
+    },
+  });
 
   if (status === "pending") {
     return <p>Loading</p>;
@@ -32,15 +32,26 @@ const App = () => {
 
   return (
     <>
-      <button
-        onClick={async () => {
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
           await executeRequest();
         }}
       >
-        Post to server
-      </button>
-      {postStatus === "pending" ? <p>Loading</p> : <p>{postData?.id}</p>}
-      {data.map((d) => (
+        <input
+          type="text"
+          onChange={(e) => setValues({ ...values, title: e.target.value })}
+          value={values.title}
+        />
+        <input
+          type="text"
+          onChange={(e) => setValues({ ...values, content: e.target.value })}
+          value={values.content}
+        />
+        <button type="submit">submit</button>
+      </form>
+
+      {data.posts.map((d) => (
         <p key={d.id}>{d.title}</p>
       ))}
     </>
