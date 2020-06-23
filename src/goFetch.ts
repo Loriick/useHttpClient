@@ -12,7 +12,7 @@ const goFetch = async (url: string, args: Arguments): Promise<any> => {
 
   const parameters = needBody
     ? { method, body: JSON.stringify(body), ...options }
-    : { method };
+    : { method, ...options };
 
   return await fetch(url, { ...parameters });
 };
